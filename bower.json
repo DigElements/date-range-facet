@@ -1,7 +1,7 @@
 {
   "name": "date-range-facet",
   "description": "A Polymer Element that displays date pickers to be used for a range filter.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "authors": [
     "Next Century Corporation"
   ],

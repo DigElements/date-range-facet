@@ -21,3 +21,17 @@ Example:
 ### Styling
 
 To style elements within, see the styling info for [date-picker-display](https://github.com/DigElements/date-picker-display).
+
+### Dependencies
+
+Dependencies are installed using [Bower](http://bower.io/):
+
+    npm install -g bower
+    bower install
+
+### Testing
+
+Tests are run using [web-component-tester](https://github.com/Polymer/web-component-tester):
+
+    npm install -g web-component-tester
+    wct
