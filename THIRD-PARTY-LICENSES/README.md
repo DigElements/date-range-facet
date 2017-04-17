@@ -4,7 +4,7 @@ The following software licenses apply to the listed third-party dependencies:
 
 ### BSD 3-Clause
 
-[License](https://github.com/NextCenturyCorporation/digapp-ht/blob/master/THIRD-PARTY-LICENSES/BSD-3-CLAUSE)
+[License](https://github.com/DigElements/date-range-facet/blob/master/THIRD-PARTY-LICENSES/BSD-3-CLAUSE)
 
 #### iron-elements
 - Copyright (c) 2016 The Polymer Project Authors
