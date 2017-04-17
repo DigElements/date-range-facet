@@ -1,0 +1,363 @@
+<!--
+Copyright 2017 Next Century Corporation
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../date-picker-display/date-picker-display.html">
+<link rel="import" href="../iron-collapse/iron-collapse.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
+<!--
+A Polymer Element that displays date pickers to be used for a range filter.
+
+Example:
+```html
+  <date-range-facet
+    style="width: 250px;"
+    date-start-key="dateStart"
+    date-start-title="From"
+    date-start-prefix-label="From"
+    date-start-identifier="start"
+    date-end-key="dateEnd"
+    date-end-title="To"
+    date-end-prefix-label="To"
+    date-end-identifier="end"
+    search-param-subset="{{facetSelection.dates}}">
+  </date-range-facet>
+```
+   
+### Styling
+
+To style elements within, see the styling info for [date-picker-display](https://github.com/DigElements/date-picker-display).
+
+@demo demo/index.html
+-->
+
+<dom-module id="date-range-facet">
+  <template>
+    <style include="iron-flex"></style>
+    <style>
+      :host {
+        display: block;
+      }
+
+      .filter-list > date-picker-display {
+        padding-bottom: 5px;
+        padding-top: 15px;
+      }
+
+      .filter-header {
+        cursor: pointer;
+        /* Match the font-weight of the Sort label */
+        font-weight: 500;
+        line-height: 24px;
+      }
+
+      .hide {
+        display: none;
+      }
+    </style>
+    <!-- title section of date range facet -->
+    <div id="header" class="layout horizontal facet filter-header" title="Toggle [[headerTitle]]s" on-tap="toggleList">
+      <span class="flex">[[headerTitle]]</span>
+      <iron-icon id="list-status-icon" icon$="[[_getToggleIcon(opened)]]"></iron-icon>
+    </div>
+
+    <!-- display of date pickers -->
+    <iron-collapse id="list" class="filter-list" opened="{{opened}}">
+      <date-picker-display
+        facet-selection="{{searchParamSubset}}"
+        key="[[dateStartKey]]"
+        title="[[dateStartTitle]]"
+        prefix-label="[[dateStartPrefixLabel]]"
+        date-identifier="[[dateStartIdentifier]]"
+        date-facet-structure="{{dateFacetStructure}}"
+        facet-label-format="{{facetLabelFormat}}"        
+        function-property="{{functionProperty}}"
+        facet-selection-date-property="{{facetSelectionDateProperty}}"
+        facet-selection-enabled-property="{{facetSelectionEnabledProperty}}">
+      </date-picker-display>
+
+      <date-picker-display
+        facet-selection="{{searchParamSubset}}"
+        key="[[dateEndKey]]"
+        title="[[dateEndTitle]]"
+        prefix-label="[[dateEndPrefixLabel]]"
+        date-identifier="[[dateEndIdentifier]]"
+        date-facet-structure="{{dateFacetStructure}}"
+        facet-label-format="{{facetLabelFormat}}"
+        function-property="{{functionProperty}}"
+        facet-selection-date-property="{{facetSelectionDateProperty}}"
+        facet-selection-enabled-property="{{facetSelectionEnabledProperty}}">
+      </date-picker-display>
+    </iron-collapse>
+
+  </template>
+
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'date-range-facet',
+
+      properties: {
+        /**
+         * (Optional)
+         *
+         * Title to use in header.
+         *
+         * @type {String}
+         * @default 'Date'
+         */
+        headerTitle: {
+          type: String,
+          notify: true,
+          value: 'Date'
+        },
+
+        /**
+         * (Required)
+         *
+         * Subset of searchParameters to pass along to the date-picker-display.
+         *
+         * @type {Object}
+         */
+        searchParamSubset: {
+          type: Object,
+          notify: true
+        },
+
+        /**
+         * (Optional)
+         *
+         * Format for date stored in searchParamSubset (used by date-picker-display).
+         *
+         * @type {String}
+         * @default 'MM/DD/YYYY'
+         */
+        facetLabelFormat: {
+          type: String,
+          value: 'MM/DD/YYYY'
+        },
+
+        /**
+         * (Required)
+         *
+         * Key for the start date.
+         *
+         * @type {String}
+         */
+        dateStartKey: {
+          type: String,
+          notify: true
+        },
+
+        /**
+         * (Required)
+         *
+         * Title for the start date.
+         *
+         * @type {String}
+         */
+        dateStartTitle: {
+          type: String,
+          notify: true
+        },
+
+        /**
+         * (Required)
+         *
+         * Prefix label for the start date (i.e. 'From').
+         *
+         * @type {String}
+         */
+        dateStartPrefixLabel: {
+          type: String,
+          notify: true
+        },
+
+        /**
+         * (Required)
+         *
+         * Unique identifier for the start date.
+         *
+         * @type {String}
+         */
+        dateStartIdentifier: {
+          type: String,
+          notify: true
+        },
+
+        /**
+         * (Required)
+         *
+         * Key for the end date.
+         *
+         * @type {String}
+         */
+        dateEndKey: {
+          type: String,
+          notify: true
+        },
+
+        /**
+         * (Required)
+         *
+         * Title for the end date.
+         *
+         * @type {String}
+         */
+        dateEndTitle: {
+          type: String,
+          notify: true
+        },
+
+        /**
+         * (Required)
+         *
+         * Prefix label for the end date (i.e. 'To').
+         *
+         * @type {String}
+         */
+        dateEndPrefixLabel: {
+          type: String,
+          notify: true
+        },
+
+        /**
+         * (Required)
+         *
+         * Unique identifier for the end date.
+         *
+         * @type {String}
+         */
+        dateEndIdentifier: {
+          type: String,
+          notify: true
+        },
+
+        /**
+         * (Optional)
+         *
+         * Icon to use for when list of date facets is opened.
+         *
+         * @type {String}
+         */
+        openedIcon: {
+          type: String,
+          value: 'icons:expand-less'
+        },
+
+        /**
+         * (Optional)
+         *
+         * Icon to use for when list of date facets is collapsed.
+         *
+         * @type {String}
+         */
+        closedIcon: {
+          type: String,
+          value: 'icons:expand-more'
+        },
+
+        /**
+         * (Optional)
+         *
+         * Whether or not the list of date facets is opened.
+         *
+         * @type {Boolean}
+         * @default true
+         */
+        opened: {
+          type: Boolean,
+          value: true,
+          notify: true
+        },
+
+        /**
+         * (Optional)
+         *
+         * Facet structure to use in date-picker-display. See date-picker-display for default structure.
+         *
+         * @type {Object}
+         */
+        dateFacetStructure: {
+          type: Object,
+          notify: true
+        },
+
+        /**
+         * (Optional)
+         *
+         * Name of function in dateFacetStructure to pass along to date-picker-display.
+         *
+         * @type {String}
+         * @default 'getObject'
+         */
+        functionProperty: {
+          type: String,
+          value: 'getObject'
+        },
+
+        /**
+         * (Optional)
+         *
+         * Name of the date property in the facetSelection object to pass along to date-picker-display.
+         *
+         * @type {String}
+         * @default 'date'
+         */
+        facetSelectionDateProperty: {
+          type: String,
+          value: 'date'
+        },
+
+        /**
+         * (Optional)
+         *
+         * Name of the enabled property in the facetSelection object to pass along to date-picker-display.
+         *
+         * @type {String}
+         * @default 'enabled'
+         */
+        facetSelectionEnabledProperty: {
+          type: String,
+          value: 'enabled'
+        }
+      },
+
+      /**
+       * Toggles the facet list open or closed.
+       */
+      toggleList: function() {
+        this.$$('#list').toggle();
+      },
+
+      /**
+       * Returns the correct icon to display based on the current status of the 'opened' property. 
+       *
+       * @param {Boolean} opened
+       * @return {String} icon
+       * @private
+       */      
+      _getToggleIcon: function(opened) {
+        return opened === false ? this.closedIcon : this.openedIcon;
+      }
+    });
+  })();
+  </script>
+</dom-module>
