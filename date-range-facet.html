@@ -85,8 +85,7 @@ To style elements within, see the styling info for [date-picker-display](https:/
         prefix-label="[[dateStartPrefixLabel]]"
         date-identifier="[[dateStartIdentifier]]"
         date-facet-structure="{{dateFacetStructure}}"
-        facet-label-format="{{facetLabelFormat}}"        
-        function-property="{{functionProperty}}"
+        facet-label-format="{{facetLabelFormat}}"
         facet-selection-date-property="{{facetSelectionDateProperty}}"
         facet-selection-enabled-property="{{facetSelectionEnabledProperty}}">
       </date-picker-display>
@@ -99,7 +98,6 @@ To style elements within, see the styling info for [date-picker-display](https:/
         date-identifier="[[dateEndIdentifier]]"
         date-facet-structure="{{dateFacetStructure}}"
         facet-label-format="{{facetLabelFormat}}"
-        function-property="{{functionProperty}}"
         facet-selection-date-property="{{facetSelectionDateProperty}}"
         facet-selection-enabled-property="{{facetSelectionEnabledProperty}}">
       </date-picker-display>
@@ -298,19 +296,6 @@ To style elements within, see the styling info for [date-picker-display](https:/
         dateFacetStructure: {
           type: Object,
           notify: true
-        },
-
-        /**
-         * (Optional)
-         *
-         * Name of function in dateFacetStructure to pass along to date-picker-display.
-         *
-         * @type {String}
-         * @default 'getObject'
-         */
-        functionProperty: {
-          type: String,
-          value: 'getObject'
         },
 
         /**
