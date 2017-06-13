@@ -38,7 +38,8 @@ limitations under the License.
         <li>Date End Title: 'To'</li>
         <li>Date End Prefix Label: 'To'</li>
         <li>Date End Identifier: 'end'</li>
-        <li>Search Param Subset: <span>{{stringifySearchParam(facetSelection.dates.*)}}</span></li>
+        <li>Search Parameters Property: 'dates'</li>
+        <li>Search Parameters: <span>[[stringify(facets.*)]]</span></li>
       </ul>
 
       <date-range-facet
@@ -51,7 +52,8 @@ limitations under the License.
         date-end-title="[[dateEndConfig.prefixLabel]]"
         date-end-prefix-label="[[dateEndConfig.prefixLabel]]"
         date-end-identifier="[[dateEndConfig.dateIdentifier]]"
-        search-param-subset="{{facetSelection.dates}}">
+        search-parameters-property="dates"
+        search-parameters="{{facets}}">
       </date-range-facet>
 
     </div>
@@ -60,7 +62,7 @@ limitations under the License.
     (function(document) {
       var demo = document.querySelector('#demo');
 
-      demo.facetSelection = {
+      demo.facets = {
         dates: {}
       };
 
@@ -76,8 +78,8 @@ limitations under the License.
         dateIdentifier: 'end'
       };
 
-      demo.stringifySearchParam = function() {
-        return JSON.stringify(demo.facetSelection.dates);
+      demo.stringify = function() {
+        return JSON.stringify(demo.facets);
       };
     })(document);
   </script>

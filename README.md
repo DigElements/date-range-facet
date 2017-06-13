@@ -2,20 +2,29 @@
 
 A Polymer Element that displays date pickers to be used for a range filter.
 
-Example:
+### Example
+```js
+var searchParameters = {
+  dates: {
+    dateStart: {},
+    dateEnd: {}
+  }
+};
+```
+
 ```html
-  <date-range-facet
-    style="width: 250px;"
-    date-start-key="dateStart"
-    date-start-title="From"
-    date-start-prefix-label="From"
-    date-start-identifier="start"
-    date-end-key="dateEnd"
-    date-end-title="To"
-    date-end-prefix-label="To"
-    date-end-identifier="end"
-    search-param-subset="{{facetSelection.dates}}">
-  </date-range-facet>
+<date-range-facet
+  date-start-key="dateStart"
+  date-start-title="From"
+  date-start-prefix-label="From"
+  date-start-identifier="start"
+  date-end-key="dateEnd"
+  date-end-title="To"
+  date-end-prefix-label="To"
+  date-end-identifier="end"
+  search-parameters-property="dates"
+  search-parameters="{{searchParameters}}">
+</date-range-facet>
 ```
 
 ### Styling

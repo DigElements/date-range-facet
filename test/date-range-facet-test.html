@@ -36,7 +36,10 @@ limitations under the License.
 
       setup(function(done) {
         element = fixture('date-range-facet-fixture');
-        element.searchParamSubset = {dateRange: {}};
+        element.searchParametersProperty = 'dates';
+        element.searchParameters = {
+          dates: {}
+        };
         element.dateStartKey = 'dateStart';
         element.dateStartTitle = 'Start';
         element.dateStartPrefixLabel = 'From';
@@ -45,12 +48,25 @@ limitations under the License.
         element.dateEndTitle = 'End';
         element.dateEndPrefixLabel = 'To';
         element.dateEndIdentifier = 'end';
-        flush(function() {
-          done();
-        });
+        flush(done);
       });
 
-      test('properties with default values are initialized correctly', function() {
+      test('input properties are initialized correctly', function() {
+        assert.equal(element.searchParametersProperty, 'dates');
+        assert.deepEqual(element.searchParameters, {
+          dates: {}
+        });
+        assert.equal(element.dateStartKey, 'dateStart');
+        assert.equal(element.dateStartTitle, 'Start');
+        assert.equal(element.dateStartPrefixLabel, 'From');
+        assert.equal(element.dateStartIdentifier, 'start');
+        assert.equal(element.dateEndKey, 'dateEnd');
+        assert.equal(element.dateEndTitle, 'End');
+        assert.equal(element.dateEndPrefixLabel, 'To');
+        assert.equal(element.dateEndIdentifier, 'end');
+      });
+
+      test('default properties are initialized correctly', function() {
         assert.equal(element.headerTitle, 'Date');
         assert.equal(element.facetLabelFormat, 'MM/DD/YYYY');
         assert.equal(element.openedIcon, 'icons:expand-less');
@@ -77,13 +93,21 @@ limitations under the License.
         assert.isNotNull(datePickers);
         assert.equal(datePickers.length, 2);
         assert.equal(datePickers[0].parentNode, element.$$('iron-collapse[id="list"]'));
-        assert.equal(datePickers[0].facetSelection, element.searchParamSubset);
+        assert.deepEqual(datePickers[0].facets, {
+          dates: {}
+        });
+        assert.equal(datePickers[0].facets, element.searchParameters);
+        assert.equal(datePickers[0].facetKey, 'dates');
         assert.equal(datePickers[0].key, element.dateStartKey);
         assert.equal(datePickers[0].title, element.dateStartTitle);
         assert.equal(datePickers[0].prefixLabel, element.dateStartPrefixLabel);
         assert.equal(datePickers[0].dateIdentifier, element.dateStartIdentifier);
         assert.equal(datePickers[1].parentNode, element.$$('iron-collapse[id="list"]'));
-        assert.equal(datePickers[1].facetSelection, element.searchParamSubset);
+        assert.deepEqual(datePickers[1].facets, {
+          dates: {}
+        });
+        assert.equal(datePickers[1].facets, element.searchParameters);
+        assert.equal(datePickers[1].facetKey, 'dates');
         assert.equal(datePickers[1].key, element.dateEndKey);
         assert.equal(datePickers[1].title, element.dateEndTitle);
         assert.equal(datePickers[1].prefixLabel, element.dateEndPrefixLabel);

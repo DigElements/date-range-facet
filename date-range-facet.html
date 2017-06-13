@@ -23,22 +23,31 @@ limitations under the License.
 <!--
 A Polymer Element that displays date pickers to be used for a range filter.
 
-Example:
-```html
-  <date-range-facet
-    style="width: 250px;"
-    date-start-key="dateStart"
-    date-start-title="From"
-    date-start-prefix-label="From"
-    date-start-identifier="start"
-    date-end-key="dateEnd"
-    date-end-title="To"
-    date-end-prefix-label="To"
-    date-end-identifier="end"
-    search-param-subset="{{facetSelection.dates}}">
-  </date-range-facet>
+### Example
+```js
+var searchParameters = {
+  dates: {
+    dateStart: {},
+    dateEnd: {}
+  }
+};
 ```
-   
+
+```html
+<date-range-facet
+  date-start-key="dateStart"
+  date-start-title="From"
+  date-start-prefix-label="From"
+  date-start-identifier="start"
+  date-end-key="dateEnd"
+  date-end-title="To"
+  date-end-prefix-label="To"
+  date-end-identifier="end"
+  search-parameters-property="dates"
+  search-parameters="{{searchParameters}}">
+</date-range-facet>
+```
+
 ### Styling
 
 To style elements within, see the styling info for [date-picker-display](https://github.com/DigElements/date-picker-display).
@@ -79,7 +88,8 @@ To style elements within, see the styling info for [date-picker-display](https:/
     <!-- display of date pickers -->
     <iron-collapse id="list" class="filter-list" opened="{{opened}}">
       <date-picker-display
-        facet-selection="{{searchParamSubset}}"
+        facet-key="[[searchParametersProperty]]"
+        facets="{{searchParameters}}"
         key="[[dateStartKey]]"
         title="[[dateStartTitle]]"
         prefix-label="[[dateStartPrefixLabel]]"
@@ -91,7 +101,8 @@ To style elements within, see the styling info for [date-picker-display](https:/
       </date-picker-display>
 
       <date-picker-display
-        facet-selection="{{searchParamSubset}}"
+        facet-key="[[searchParametersProperty]]"
+        facets="{{searchParameters}}"
         key="[[dateEndKey]]"
         title="[[dateEndTitle]]"
         prefix-label="[[dateEndPrefixLabel]]"
@@ -130,13 +141,24 @@ To style elements within, see the styling info for [date-picker-display](https:/
         /**
          * (Required)
          *
-         * Subset of searchParameters to pass along to the date-picker-display.
+         * The object to pass along to the `date-picker-display` as the `facets`.
          *
          * @type {Object}
          */
-        searchParamSubset: {
-          type: Object,
-          notify: true
+        searchParameters: {
+          notify: true,
+          type: Object
+        },
+
+        /**
+         * (Required)
+         *
+         * The string to pass along to the `date-picker-display` as the `facetKey`.
+         *
+         * @type {String}
+         */
+        searchParametersProperty: {
+          type: String
         },
 
         /**
