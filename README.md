@@ -15,21 +15,13 @@ var searchParameters = {
 ```html
 <date-range-facet
   date-start-key="dateStart"
-  date-start-title="From"
-  date-start-prefix-label="From"
-  date-start-identifier="start"
+  date-start-title="Start Date"
   date-end-key="dateEnd"
-  date-end-title="To"
-  date-end-prefix-label="To"
-  date-end-identifier="end"
+  date-end-title="End Date"
   search-parameters-property="dates"
   search-parameters="{{searchParameters}}">
 </date-range-facet>
 ```
-
-### Styling
-
-To style elements within, see the styling info for [date-picker-display](https://github.com/DigElements/date-picker-display).
 
 ### Dependencies
 

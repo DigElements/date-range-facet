@@ -14,11 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../date-picker-display/date-picker-display.html">
 <link rel="import" href="../iron-collapse/iron-collapse.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../vaadin-date-picker-display/vaadin-date-picker-display.html">
 
 <!--
 A Polymer Element that displays date pickers to be used for a range filter.
@@ -36,21 +36,13 @@ var searchParameters = {
 ```html
 <date-range-facet
   date-start-key="dateStart"
-  date-start-title="From"
-  date-start-prefix-label="From"
-  date-start-identifier="start"
+  date-start-title="Start Date"
   date-end-key="dateEnd"
-  date-end-title="To"
-  date-end-prefix-label="To"
-  date-end-identifier="end"
+  date-end-identifier="End Date"
   search-parameters-property="dates"
   search-parameters="{{searchParameters}}">
 </date-range-facet>
 ```
-
-### Styling
-
-To style elements within, see the styling info for [date-picker-display](https://github.com/DigElements/date-picker-display).
 
 @demo demo/index.html
 -->
@@ -58,12 +50,13 @@ To style elements within, see the styling info for [date-picker-display](https:/
 <dom-module id="date-range-facet">
   <template>
     <style include="iron-flex"></style>
+
     <style>
       :host {
         display: block;
       }
 
-      .filter-list > date-picker-display {
+      .filter-list > vaadin-date-picker-display {
         padding-bottom: 5px;
         padding-top: 15px;
       }
@@ -79,6 +72,7 @@ To style elements within, see the styling info for [date-picker-display](https:/
         display: none;
       }
     </style>
+
     <!-- title section of date range facet -->
     <div id="header" class="layout horizontal facet filter-header" title="Toggle [[headerTitle]]s" on-tap="toggleList">
       <span class="flex">[[headerTitle]]</span>
@@ -87,33 +81,28 @@ To style elements within, see the styling info for [date-picker-display](https:/
 
     <!-- display of date pickers -->
     <iron-collapse id="list" class="filter-list" opened="{{opened}}">
-      <date-picker-display
+      <vaadin-date-picker-display
         facet-key="[[searchParametersProperty]]"
         facets="{{searchParameters}}"
         key="[[dateStartKey]]"
-        title="[[dateStartTitle]]"
-        prefix-label="[[dateStartPrefixLabel]]"
-        date-identifier="[[dateStartIdentifier]]"
+        category="[[dateStartTitle]]"
         date-facet-structure="{{dateFacetStructure}}"
         facet-label-format="{{facetLabelFormat}}"
         facet-selection-date-property="{{facetSelectionDateProperty}}"
         facet-selection-enabled-property="{{facetSelectionEnabledProperty}}">
-      </date-picker-display>
+      </vaadin-date-picker-display>
 
-      <date-picker-display
+      <vaadin-date-picker-display
         facet-key="[[searchParametersProperty]]"
         facets="{{searchParameters}}"
         key="[[dateEndKey]]"
-        title="[[dateEndTitle]]"
-        prefix-label="[[dateEndPrefixLabel]]"
-        date-identifier="[[dateEndIdentifier]]"
+        category="[[dateEndTitle]]"
         date-facet-structure="{{dateFacetStructure}}"
         facet-label-format="{{facetLabelFormat}}"
         facet-selection-date-property="{{facetSelectionDateProperty}}"
         facet-selection-enabled-property="{{facetSelectionEnabledProperty}}">
-      </date-picker-display>
+      </vaadin-date-picker-display>
     </iron-collapse>
-
   </template>
 
   <script>
@@ -141,7 +130,7 @@ To style elements within, see the styling info for [date-picker-display](https:/
         /**
          * (Required)
          *
-         * The object to pass along to the `date-picker-display` as the `facets`.
+         * The object to pass along to the date picker as the `facets`.
          *
          * @type {Object}
          */
@@ -153,7 +142,7 @@ To style elements within, see the styling info for [date-picker-display](https:/
         /**
          * (Required)
          *
-         * The string to pass along to the `date-picker-display` as the `facetKey`.
+         * The string to pass along to the date picker as the `facetKey`.
          *
          * @type {String}
          */
@@ -164,7 +153,7 @@ To style elements within, see the styling info for [date-picker-display](https:/
         /**
          * (Optional)
          *
-         * Format for date stored in searchParamSubset (used by date-picker-display).
+         * Format for date stored in searchParamSubset (used by the date picker).
          *
          * @type {String}
          * @default 'MM/DD/YYYY'
@@ -201,30 +190,6 @@ To style elements within, see the styling info for [date-picker-display](https:/
         /**
          * (Required)
          *
-         * Prefix label for the start date (i.e. 'From').
-         *
-         * @type {String}
-         */
-        dateStartPrefixLabel: {
-          type: String,
-          notify: true
-        },
-
-        /**
-         * (Required)
-         *
-         * Unique identifier for the start date.
-         *
-         * @type {String}
-         */
-        dateStartIdentifier: {
-          type: String,
-          notify: true
-        },
-
-        /**
-         * (Required)
-         *
          * Key for the end date.
          *
          * @type {String}
@@ -242,30 +207,6 @@ To style elements within, see the styling info for [date-picker-display](https:/
          * @type {String}
          */
         dateEndTitle: {
-          type: String,
-          notify: true
-        },
-
-        /**
-         * (Required)
-         *
-         * Prefix label for the end date (i.e. 'To').
-         *
-         * @type {String}
-         */
-        dateEndPrefixLabel: {
-          type: String,
-          notify: true
-        },
-
-        /**
-         * (Required)
-         *
-         * Unique identifier for the end date.
-         *
-         * @type {String}
-         */
-        dateEndIdentifier: {
           type: String,
           notify: true
         },
@@ -311,7 +252,7 @@ To style elements within, see the styling info for [date-picker-display](https:/
         /**
          * (Optional)
          *
-         * Facet structure to use in date-picker-display. See date-picker-display for default structure.
+         * Facet structure to use in the date picker. See the date picker for default structure.
          *
          * @type {Object}
          */
@@ -323,7 +264,7 @@ To style elements within, see the styling info for [date-picker-display](https:/
         /**
          * (Optional)
          *
-         * Name of the date property in the facetSelection object to pass along to date-picker-display.
+         * Name of the date property in the facetSelection object to pass along to the date picker.
          *
          * @type {String}
          * @default 'date'
@@ -336,7 +277,7 @@ To style elements within, see the styling info for [date-picker-display](https:/
         /**
          * (Optional)
          *
-         * Name of the enabled property in the facetSelection object to pass along to date-picker-display.
+         * Name of the enabled property in the facetSelection object to pass along to the date picker.
          *
          * @type {String}
          * @default 'enabled'

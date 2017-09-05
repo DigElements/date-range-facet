@@ -31,13 +31,9 @@ limitations under the License.
       <p>Properties:</p>
       <ul>
         <li>Date Start Key: 'dateStart'</li>
-        <li>Date Start Title: 'From'</li>
-        <li>Date Start Prefix Label: 'From'</li>
-        <li>Date Start Identifier: 'start'</li>
+        <li>Date Start Title: 'Start Date'</li>
         <li>Date End Key: 'dateEnd'</li>
-        <li>Date End Title: 'To'</li>
-        <li>Date End Prefix Label: 'To'</li>
-        <li>Date End Identifier: 'end'</li>
+        <li>Date End Title: 'End Date'</li>
         <li>Search Parameters Property: 'dates'</li>
         <li>Search Parameters: <span>[[stringify(facets.*)]]</span></li>
       </ul>
@@ -45,13 +41,9 @@ limitations under the License.
       <date-range-facet
         style="width: 250px;"
         date-start-key="[[dateStartConfig.key]]"
-        date-start-title="[[dateStartConfig.prefixLabel]]"
-        date-start-prefix-label="[[dateStartConfig.prefixLabel]]"
-        date-start-identifier="[[dateStartConfig.dateIdentifier]]"
+        date-start-title="[[dateStartConfig.title]]"
         date-end-key="[[dateEndConfig.key]]"
-        date-end-title="[[dateEndConfig.prefixLabel]]"
-        date-end-prefix-label="[[dateEndConfig.prefixLabel]]"
-        date-end-identifier="[[dateEndConfig.dateIdentifier]]"
+        date-end-title="[[dateEndConfig.title]]"
         search-parameters-property="dates"
         search-parameters="{{facets}}">
       </date-range-facet>
@@ -68,14 +60,12 @@ limitations under the License.
 
       demo.dateStartConfig = {
         key: 'dateStart',
-        prefixLabel: 'From',
-        dateIdentifier: 'start'
+        title: 'Start Date'
       };
 
       demo.dateEndConfig = {
         key: 'dateEnd',
-        prefixLabel: 'To',
-        dateIdentifier: 'end'
+        title: 'End Date'
       };
 
       demo.stringify = function() {
