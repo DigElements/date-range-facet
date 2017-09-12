@@ -18,60 +18,62 @@ limitations under the License.
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+  <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
   <link rel="import" href="../date-range-facet.html">
 
 </head>
 
 <body unresolved>
-  <template is="dom-bind" id="demo">
-    <div>
-      <p>date-range-facet demo:</p>
+  <dom-bind>
+    <script>
+      (function(document) {
+        var demo = document.querySelector('dom-bind');
 
-      <p>Properties:</p>
-      <ul>
-        <li>Date Start Key: 'dateStart'</li>
-        <li>Date Start Title: 'Start Date'</li>
-        <li>Date End Key: 'dateEnd'</li>
-        <li>Date End Title: 'End Date'</li>
-        <li>Search Parameters Property: 'dates'</li>
-        <li>Search Parameters: <span>[[stringify(facets.*)]]</span></li>
-      </ul>
+        demo.facets = {
+          dates: {}
+        };
 
-      <date-range-facet
-        style="width: 250px;"
-        date-start-key="[[dateStartConfig.key]]"
-        date-start-title="[[dateStartConfig.title]]"
-        date-end-key="[[dateEndConfig.key]]"
-        date-end-title="[[dateEndConfig.title]]"
-        search-parameters-property="dates"
-        search-parameters="{{facets}}">
-      </date-range-facet>
+        demo.dateStartConfig = {
+          key: 'dateStart',
+          title: 'Start Date'
+        };
 
-    </div>
-  </template>
-  <script>
-    (function(document) {
-      var demo = document.querySelector('#demo');
+        demo.dateEndConfig = {
+          key: 'dateEnd',
+          title: 'End Date'
+        };
 
-      demo.facets = {
-        dates: {}
-      };
+        demo.stringify = function() {
+          return JSON.stringify(demo.facets);
+        };
+      })(document);
+    </script>
+    <template is="dom-bind" id="demo">
+      <div>
+        <p>date-range-facet demo:</p>
 
-      demo.dateStartConfig = {
-        key: 'dateStart',
-        title: 'Start Date'
-      };
+        <p>Properties:</p>
+        <ul>
+          <li>Date Start Key: 'dateStart'</li>
+          <li>Date Start Title: 'Start Date'</li>
+          <li>Date End Key: 'dateEnd'</li>
+          <li>Date End Title: 'End Date'</li>
+          <li>Search Parameters Property: 'dates'</li>
+          <li>Search Parameters: <span>[[stringify(facets.*)]]</span></li>
+        </ul>
 
-      demo.dateEndConfig = {
-        key: 'dateEnd',
-        title: 'End Date'
-      };
+        <date-range-facet
+          style="width: 250px;"
+          date-start-key="[[dateStartConfig.key]]"
+          date-start-title="[[dateStartConfig.title]]"
+          date-end-key="[[dateEndConfig.key]]"
+          date-end-title="[[dateEndConfig.title]]"
+          search-parameters-property="dates"
+          search-parameters="{{facets}}">
+        </date-range-facet>
 
-      demo.stringify = function() {
-        return JSON.stringify(demo.facets);
-      };
-    })(document);
-  </script>
+      </div>
+    </template>
+  </dom-bind>
 </body>
 </html>
