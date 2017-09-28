@@ -56,11 +56,6 @@ var searchParameters = {
         display: block;
       }
 
-      .filter-list > vaadin-date-picker-display {
-        padding-bottom: 5px;
-        padding-top: 15px;
-      }
-
       .filter-header {
         cursor: pointer;
         /* Match the font-weight of the Sort label */
@@ -74,7 +69,7 @@ var searchParameters = {
     </style>
 
     <!-- title section of date range facet -->
-    <div id="header" class="layout horizontal facet filter-header" title="Toggle [[headerTitle]]s" on-tap="toggleList">
+    <div id="header" class="layout horizontal facet filter-header" title="Toggle [[headerTitle]]" on-tap="toggleList">
       <span class="flex">[[headerTitle]]</span>
       <iron-icon id="list-status-icon" icon$="[[_getToggleIcon(opened)]]"></iron-icon>
     </div>
