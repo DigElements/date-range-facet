@@ -1,7 +1,7 @@
 {
   "name": "date-range-facet",
   "description": "A Polymer Element that displays date pickers to be used for a range filter.",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "authors": [
     "Next Century Corporation"
   ],
@@ -22,7 +22,7 @@
     "iron-flex-layout": "PolymerElements/iron-flex-layout#2.0.0",
     "iron-icons": "PolymerElements/iron-icons#^2.0.0",
     "iron-icon": "PolymerElements/iron-icon#^2.0.0",
-    "vaadin-date-picker-display": "DigElements/vaadin-date-picker-display#2.0.1"
+    "vaadin-date-picker-display": "DigElements/vaadin-date-picker-display#2.0.3"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^2.0.0",
