@@ -70,11 +70,11 @@ limitations under the License.
 
       test('template has expected header elements', function() {
         assert.isNotNull(element.$$('#header'));
-        assert.equal(element.$$('#header').title, 'Toggle ' + element.headerTitle + 's');
+        assert.equal(element.$$('#header').title, 'Toggle ' + element.headerTitle);
         assert.isTrue(element.$$('#header').textContent.includes(element.headerTitle));
-        assert.isNotNull(element.$$('iron-icon[id="list-status-icon"]'));
-        assert.equal(element.$$('iron-icon[id="list-status-icon"]').parentNode, element.$$('#header'));
-        assert.equal(element.$$('iron-icon[id="list-status-icon"]').icon, element.openedIcon);
+        assert.isNotNull(element.$$('stylized-icon.list-status-icon'));
+        assert.equal(element.$$('stylized-icon.list-status-icon').parentNode, element.$$('#header'));
+        assert.equal(element.$$('stylized-icon.list-status-icon').icon, element.openedIcon);
       });
 
       test('template has expected elements in list section', function() {
@@ -110,7 +110,7 @@ limitations under the License.
         flush(function() {
           assert.isFalse(element.opened);
           assert.equal(element.$$('iron-collapse[id="list"]').opened, element.opened);
-          assert.equal(element.$$('iron-icon[id="list-status-icon"]').icon, element.closedIcon);
+          assert.equal(element.$$('stylized-icon.list-status-icon').icon, element.closedIcon);
           done();
         });
       });

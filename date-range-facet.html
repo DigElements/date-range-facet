@@ -16,8 +16,7 @@ limitations under the License.
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-collapse/iron-collapse.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
-<link rel="import" href="../iron-icon/iron-icon.html">
-<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../stylized-icon/stylized-icon.html">
 <link rel="import" href="../vaadin-date-picker-display/vaadin-date-picker-display.html">
 
 <!--
@@ -60,7 +59,11 @@ var searchParameters = {
         cursor: pointer;
         /* Match the font-weight of the Sort label */
         font-weight: 500;
-        line-height: 24px;
+        line-height: 20px;
+      }
+
+      .filter-header:hover .list-status-icon {
+        --stylized-icon-color: var(--paper-grey-900);
       }
 
       .hide {
@@ -71,7 +74,7 @@ var searchParameters = {
     <!-- title section of date range facet -->
     <div id="header" class="layout horizontal facet filter-header" title="Toggle [[headerTitle]]" on-tap="toggleList">
       <span class="flex">[[headerTitle]]</span>
-      <iron-icon id="list-status-icon" icon$="[[_getToggleIcon(opened)]]"></iron-icon>
+      <stylized-icon class="list-status-icon" icon="[[_getToggleIcon(opened)]]"></stylized-icon>
     </div>
 
     <!-- display of date pickers -->
